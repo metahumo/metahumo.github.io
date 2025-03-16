@@ -35,7 +35,7 @@ Cada ejercicio se organiza de la siguiente manera:
 
 1. Clona este repositorio en tu máquina local:
     ```bash
-    git clone https://github.com/metahumo/metahumo.github.io/ejercicios.git
+    git clone https://github.com/metahumo/metahumo.github.io.git
     ```
 
 2. Abre los archivos `.md` para leer las explicaciones y seguir los pasos. Puedes hacerlo directamente desde GitHub o utilizando un editor de texto local.
