@@ -2,8 +2,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     const ejercicios = [
         { nombre: "HTB - Nibbleblog", enlace: "HTB_Nibbleblog.md" },
-        { nombre: "Ejercicio de SQL Injection", enlace: "sql_injection.md" },
-        { nombre: "Ejercicio de Fuerza Bruta", enlace: "fuerza_bruta.md" }
     ];
 
     const listaEjercicios = document.getElementById("ejercicios-container");
