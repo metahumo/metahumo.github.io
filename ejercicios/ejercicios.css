@@ -72,6 +72,22 @@ h2 {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
+#contenido-ejercicio {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+pre {
+    background: #222;
+    color: #00ff00;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
 footer {
     background-color: #333;
     color: white;
