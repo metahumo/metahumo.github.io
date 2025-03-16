@@ -68,7 +68,7 @@ msfconsole
 
 Esto debe de abrir la consola interactiva de Metasploit (msfconsole), donde puedes empezar a usar la herramienta.
 
-![Captura de pantalla](herramientas/metaesploit/imagenes/msfconsole.png)
+![Captura de pantalla](./imagenes/msfconsole.png)
 
 #### 2.2. Buscar módulos de exploits
 
