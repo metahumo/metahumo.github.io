@@ -82,7 +82,7 @@ search Wordpress
 search Nibbleblog
 ```
 
-![Captura de pantalla](herramientas/metaesploit/imagenes/search.png)
+![Captura de pantalla](./imagenes/search.png)
 
 #### 2.3. Seleccionar un exploit
 
@@ -97,7 +97,7 @@ use exploit/multi/http/nibbleblog_file_upload
 ```
 Dos formas válidas de seleccionar un exploit (el nº 0 hace referencia al índice del exploit, miestras que la segunda forma es nombrando la ruta absoluta del exploit)
 
-![Captura de pantalla](herramientas/metaesploit/imagenes/use.png)
+![Captura de pantalla](./imagenes/use.png)
 
 #### 2.4. Ver los parámetros del exploit
 
@@ -115,7 +115,7 @@ Cuando seleccionas un exploit, tienes que ver los parámetros necesarios (como l
 show options
 ```
 
-![Captura de pantalla](herramientas/metaesploit/imagenes/show_options.png)
+![Captura de pantalla](./imagenes/show_options.png)
 	
 #### 2.5. Configurar los parámetros del exploit
 
@@ -163,7 +163,7 @@ Cada exploit requiere de un payload, para ver los disponibles podemos usar el co
 show payloads
 ```
 
-![Captura de pantalla](herramientas/metaesploit/imagenes/show_payloads.png)
+![Captura de pantalla](./imagenes/show_payloads.png)
 
 #### 2.7. Seleccionar un payload
 
