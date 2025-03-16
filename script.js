@@ -1,6 +1,7 @@
 // script.js - Funcionalidad básica
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const welcomeMessage = document.querySelector('header p');
-    welcomeMessage.innerHTML += " ¡Compartiré mi proceso de aprendizaje desde cero!";
+    welcomeMessage.innerHTML += " ¡Aquí comenzarás a aprender y compartir tus conocimientos en ciberseguridad!";
 });
+
