@@ -1,7 +1,21 @@
-// script.js - Funcionalidad básica
+// Genera dinámicamente la lista de ejercicios
+document.addEventListener("DOMContentLoaded", function() {
+    const ejercicios = [
+        { nombre: "HTB - Nibbleblog", enlace: "HTB_Nibbleblog.md" },
+        { nombre: "Ejercicio de SQL Injection", enlace: "sql_injection.md" },
+        { nombre: "Ejercicio de Fuerza Bruta", enlace: "fuerza_bruta.md" }
+    ];
 
-document.addEventListener("DOMContentLoaded", function () {
-    const welcomeMessage = document.querySelector('header p');
-    welcomeMessage.innerHTML += " ¡Aquí comenzarás a aprender y compartir tus conocimientos en ciberseguridad!";
+    const listaEjercicios = document.getElementById("ejercicios-container");
+
+    ejercicios.forEach(ejercicio => {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.textContent = ejercicio.nombre;
+        link.href = ejercicio.enlace;
+        link.target = "_blank"; // Abre en nueva pestaña
+        li.appendChild(link);
+        listaEjercicios.appendChild(li);
+    });
 });
 
