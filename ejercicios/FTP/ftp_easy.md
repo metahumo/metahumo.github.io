@@ -86,7 +86,7 @@ use auxiliary/scanner/ftp/ftp_version
 set RHOSTS IP_objetivo
 run
 ```
-[|] Para dudas sobre el uso de `Metasploit` visitar en este repositorio el apartado de herramientas/metasploit
+[!] Para dudas sobre el uso de `Metasploit` visitar en este repositorio el apartado de herramientas/metasploit
 ---
 
 ## 7. Otras formas de detectar la versión del servicio FTP  
