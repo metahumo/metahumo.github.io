@@ -18,7 +18,7 @@ PORT     STATE SERVICE
 
 ---
 
-![Captura de pantalla](ejercicios/ftp/imagenes/nmap_initial_scan.png)
+![Captura de pantalla](./imagenes/nmap_initial_scan.png)
 
 ## 2. Escaneo detallado con scripts de `nmap`
 ```bash
@@ -35,7 +35,7 @@ PORT     STATE SERVICE     VERSION
 -**Acceso anónimo permitido** → Podemos conectarnos sin credenciales.
 -**Directorio `pub` disponible** → Puede contener archivos sensibles.
 
-![Captura de pantalla](ejercicios/ftp/imagenes/nmap_servicios_ftp.png)
+![Captura de pantalla](./imagenes/nmap_servicios_ftp.png)
 ---
 
 ## 3. Acceso al FTP y enumeración de archivos  
@@ -99,7 +99,7 @@ nc -nv IP_objetivo 21
 220 (vsFTPd 3.0.3)  # Versión del servicio
 ```
 
-![Captura de pantalla](ejercicios/ftp/imagenes/nc_nv_ip_puerto.png)
+![Captura de pantalla](./imagenes/nc_nv_ip_puerto.png)
 
 ### **7.2 Con `nmap --script=banner`**
 ```bash
@@ -111,7 +111,7 @@ nmap -sV --script=banner -p21 IP_objetivo
 |_banner: 220 (vsFTPd 3.0.3)
 ```
 
-![Captura de pantalla](ejercicios/ftp/imagenes/nmap_script_banner.png)
+![Captura de pantalla](./imagenes/nmap_script_banner.png)
 
 ---
 
@@ -120,9 +120,9 @@ nmap -sV --script=banner -p21 IP_objetivo
 - Si **podemos subir archivos**, podemos intentar una **web shell** o un **script de escalada de privilegios**.  
 - Si el servicio es **vulnerable**, podemos explotarlo con **Metasploit o exploits públicos**.  
 
-```
+---
 
-![Captura de pantalla](ejercicios/ftp/imagenes/secuencia_ftp.png)
+![Captura de pantalla](./imagenes/secuencia_ftp.png)
 
 ¡Listo para probarlo por ejemplo en HTB!
 ```
