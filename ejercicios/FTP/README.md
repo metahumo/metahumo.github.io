@@ -17,7 +17,7 @@ Esta documentación está pensada para ser utilizada solo en entornos de pruebas
 
 📁 FTP/ (directorio principal)
 ├── 📄 README.md (esta guía)
-├── 📄 HTB_FTP.md (documentación detallada sobre la explotación del servicio FTP)
+├── 📄 ftp_easy.md (documentación detallada sobre la explotación del servicio FTP)
 
 ## Cómo Usar Este Repositorio
 
