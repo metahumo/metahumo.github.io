@@ -111,7 +111,7 @@ nmap -sV --script=banner -p21 IP_objetivo
 |_banner: 220 (vsFTPd 3.0.3)
 ```
 
-![Captura de pantalla](./imagenes/nmap_script_banner.png)
+![Captura de pantalla](./imagenes/nmap_script_banner_ftp.png)
 
 ---
 
@@ -122,7 +122,7 @@ nmap -sV --script=banner -p21 IP_objetivo
 
 ---
 
-![Captura de pantalla](./imagenes/secuencia_ftp.png)
+![Captura de pantalla](./imagenes/secuencia_fpt.png)
 
 ¡Listo para probarlo por ejemplo en HTB!
 ```
