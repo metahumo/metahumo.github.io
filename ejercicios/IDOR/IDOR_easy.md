@@ -71,7 +71,7 @@ gobuster dir -u http://10.10.10.245:80/ -w /usr/share/wordlists/dirb/common.txt 
 
 	[i] Este formato sugiere la posible presencia de una vulnerabilidad IDOR (Insecure Direct Object Reference), que permite modificar la URL (el parámetro 'id') para acceder a registros no autorizados. Dependiendo de la implementación, esto podría permitir acceder a datos de otros usuarios.
 
-![Captura de pantalla](./imagenes/5_IDOR.png)
+![Captura de pantalla](./imagenes/5_IDOP.png)
 
 ---
 
