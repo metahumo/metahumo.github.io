@@ -22,7 +22,7 @@
 ### 1. Nmap
 
 ```bash
-nmap -sV --open -oA initial_scan -Pn -n -sS -v 10.10.10.XXX
+nmap -sV --open -oA initial_scan -Pn -n -sS -v 10.10.10.245
 ```
 
 ![Captura de pantalla](./imagenes/1_nmap.png)
@@ -32,7 +32,7 @@ nmap -sV --open -oA initial_scan -Pn -n -sS -v 10.10.10.XXX
 [!] Se identifican varios puertos abiertos. Procedemos a un escaneo más detallado en los más relevantes.
 
 ```bash
-nmap -sC -sV -n -Pn -sS -p21,22,80 10.10.10.XXX -v
+nmap -sC -sV -n -Pn -sS -p21,22,80 10.10.10.245 -v
 ```
 
 [!] Obtenemos información relevante, destacamos dos elementos:
