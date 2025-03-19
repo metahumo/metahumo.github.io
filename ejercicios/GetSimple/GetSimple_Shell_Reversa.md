@@ -52,7 +52,7 @@ El autor de esta publicación no se responsabiliza por el uso indebido de las t�
 
 ### 1 Escaneo de puertos y servicios con Nmap
 
-El primer escaneo de Nmap lo iniciamos utilizando la lista de puertos más comunes que Nmap escanea por defecto cuando no se especifican puertos (es decir, al no usar el parámetro <>p` con un rango de puertos o <>p-`, Nmap escanea los 1000 puertos más comunes).
+El primer escaneo de Nmap lo iniciamos utilizando la lista de puertos más comunes que Nmap escanea por defecto cuando no se especifican puertos (es decir, al no usar el parámetro `-p` con un rango de puertos o `-p-`, Nmap escanea los 1000 puertos más comunes).
 
 Este paso es fundamental en cualquier prueba de penetración, ya que nos permite identificar los servicios y puertos abiertos en el sistema objetivo.
 
@@ -61,17 +61,17 @@ Este paso es fundamental en cualquier prueba de penetración, ya que nos permite
 nmap --open -sV -n -Pn -sS -v -oA initial_scan_nmap IP_objetivo
 ```
 
-[i] El parámetro <>-open` hace que Nmap solo reporte los puertos abiertos, lo cual es útil cuando queremos centrarnos exclusivamente en los servicios activos y no perder tiempo con puertos cerrados.
+[i] El parámetro `--open` hace que Nmap solo reporte los puertos abiertos, lo cual es útil cuando queremos centrarnos exclusivamente en los servicios activos y no perder tiempo con puertos cerrados.
 
-[i] El parámetro <>sV` se utiliza para identificar la versión de los servicios que están corriendo en los puertos abiertos, lo cual es crucial para detectar vulnerabilidades conocidas asociadas a versiones específicas de los servicios.
+[i] El parámetro `-sV` se utiliza para identificar la versión de los servicios que están corriendo en los puertos abiertos, lo cual es crucial para detectar vulnerabilidades conocidas asociadas a versiones específicas de los servicios.
 
-[i] El parámetros <>n` se utiliza para agilizar el proceso, ya que evita la resolución DNS (es decir, Nmap no intentará traducir las direcciones IP a nombres de dominio). Además, esto ayuda a minimizar el tráfico DNS, lo cual es relevante en pruebas de penetración donde se desea mantener un perfil bajo y evitar la detección temprana.
+[i] El parámetros `-n` se utiliza para agilizar el proceso, ya que evita la resolución DNS (es decir, Nmap no intentará traducir las direcciones IP a nombres de dominio). Además, esto ayuda a minimizar el tráfico DNS, lo cual es relevante en pruebas de penetración donde se desea mantener un perfil bajo y evitar la detección temprana.
 
-[i] El parámetro <>Pn` evita que Nmap realice una verificación de hosts con ping (ICMP), lo cual es necesario si el objetivo tiene medidas de protección contra este tipo de escaneos. En redes donde los hosts no responden a pings, este parámetro garantiza que el escaneo se realice sin fallar en la detección del host.
+[i] El parámetro `-Pn` evita que Nmap realice una verificación de hosts con ping (ICMP), lo cual es necesario si el objetivo tiene medidas de protección contra este tipo de escaneos. En redes donde los hosts no responden a pings, este parámetro garantiza que el escaneo se realice sin fallar en la detección del host.
 
-[i] El parámetro <>sS` realiza un "SYN scan", que es una técnica rápida y sigilosa. Este tipo de escaneo no completa el handshake TCP, lo que permite detectar puertos abiertos sin dejar muchas huellas en el sistema de destino, lo que lo hace más difícil de detectar por medidas de seguridad.
+[i] El parámetro `-sS` realiza un "SYN scan", que es una técnica rápida y sigilosa. Este tipo de escaneo no completa el handshake TCP, lo que permite detectar puertos abiertos sin dejar muchas huellas en el sistema de destino, lo que lo hace más difícil de detectar por medidas de seguridad.
 
-[i] El parámetro <>v` aplica "verbosidad", aplicando una capa extra de información que nos irá mostrando por pantalla mientras el escaneo procede. Sirve para obtener información osbre la marcha. Con <>vvv` obtendríamos algo más de información sobre el escaneo.
+[i] El parámetro `-v` aplica "verbosidad", aplicando una capa extra de información que nos irá mostrando por pantalla mientras el escaneo procede. Sirve para obtener información osbre la marcha. Con `-vvv` obtendríamos algo más de información sobre el escaneo.
 
 En este caso encontramos dos puertos abiertos (no es poca cosa), vemos los servicios y las versiones que corren por sus respectivos puertos.
 
@@ -86,7 +86,7 @@ Para asegurar podemos dejar corriendo en segundo plano o en una terminal a parte
 ```bash
 nmap -p- --open -sV -n -Pn -sS -v --max-retries 1 --min-rate 5000 -oA initial_scan_nmap IP_objetivo
 ```
-[i] El parámetro <>sC` ejecuta un serie de scripts predeterminados por nmap, de esta forma podemos hacer una primera aproximación con más detalle de cada puerto numerado.
+[i] El parámetro `-sC` ejecuta un serie de scripts predeterminados por nmap, de esta forma podemos hacer una primera aproximación con más detalle de cada puerto numerado.
 
 
 [ i ] En este caso, no se detectó ningún puerto adicional.
@@ -95,7 +95,7 @@ nmap -p- --open -sV -n -Pn -sS -v --max-retries 1 --min-rate 5000 -oA initial_sc
 
 ### 3 Nmap enumeración de puertos 
 
-Lo siguiente es obtener más información sobre cada puerto abierto. Para ello usamos el parámetro <>sC` ejecuta un serie de scripts predeterminados por nmap, de esta forma podemos hacer una primera aproximación con más detalle de cada puerto numerado.
+Lo siguiente es obtener más información sobre cada puerto abierto. Para ello usamos el parámetro `-sC` ejecuta un serie de scripts predeterminados por nmap, de esta forma podemos hacer una primera aproximación con más detalle de cada puerto numerado.
 
 ```bash
 nmap -p22,80 -sV -sC -Pn -sS -vvv -oA initial_scan_nmap IP_objetivo
@@ -104,7 +104,7 @@ nmap -p22,80 -sV -sC -Pn -sS -vvv -oA initial_scan_nmap IP_objetivo
 
 [ i ] Para fines de esta guía, solo se detallan los resultados para el puerto 80 como ejemplo.
 
-[ i ] El parámetro <>sC` ha descubierto información interesante. Las rutas **'/admin/'** y **'/robots'**. Más adelante analizaremos esto. Antes ejecutemos un par de comandos más para tener una visión más global.
+[ i ] El parámetro `-sC` ha descubierto información interesante. Las rutas **'/admin/'** y **'/robots'**. Más adelante analizaremos esto. Antes ejecutemos un par de comandos más para tener una visión más global.
 
 ---
 
