@@ -367,12 +367,25 @@ De igual modo puede encontrar una excelente orientación en el módulo de 'Hack 
 
 <> WPScan - Documentación oficial (Inglés): https://wpscan.com/themes/
 
-<> Ruta para script de enumeración de vulnerabilidades con acceso a elevar privilegios: https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+[ + ] LinEnum.sh. Es un script de enumeración para sistemas Linux que ayuda en la recopilación de información relevante durante un proceso de análisis de seguridad o penetración.
 
-   <> Se puede decargar con wget: wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+LinEnum está diseñado para realizar una variedad de comprobaciones en sistemas Linux con el fin de identificar configuraciones inseguras, permisos erróneos, servicios vulnerables y posibles vectores de ataque, entre otras cosas. Es muy útil para obtener información valiosa para una explotación posterior.
 
-   <> También se puede descargar con curl: curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -o LinEnum.sh
+Puedes acceder a él y obtener más información a través del siguiente enlace en GitHub: https://github.com/rebootuser/LinEnum
 
+<> Ruta para script LinEnum.sh: https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+
+<> <> Se puede decargar con wget: 
+
+```bash
+wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+```
+
+<> <> También se puede descargar con curl: 
+
+```bash
+curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -o LinEnum.sh
+```
 
 
 
