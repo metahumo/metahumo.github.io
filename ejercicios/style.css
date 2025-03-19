@@ -1,4 +1,4 @@
-/* Estilos básicos para la página de Ejercicios Resueltos */
+/* Estilos básicos para la página */
 
 body {
     font-family: Arial, sans-serif;
@@ -48,35 +48,20 @@ nav ul li a {
     font-size: 1.1em;
 }
 
-nav ul li a:hover,
-nav ul li a.active {
+nav ul li a:hover {
     text-decoration: underline;
-    color: #E74C3C;
 }
 
-main {
-    padding: 20px;
-    max-width: 900px;
-    margin: 0 auto;
+section.intro {
     background-color: #ECF0F1;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
 }
 
-article h1,
-article h2,
-article h3,
-article h4 {
+section.intro h2 {
+    font-size: 2em;
     color: #2C3E50;
-}
-
-pre {
-    background-color: #333;
-    color: #ECF0F1;
-    padding: 10px;
-    overflow-x: auto;
-}
-
-code {
-    font-family: "Courier New", Courier, monospace;
 }
 
 footer {
@@ -84,7 +69,16 @@ footer {
     color: white;
     text-align: center;
     padding: 15px;
-    position: relative;
+    position: absolute;
     width: 100%;
     bottom: 0;
+}
+
+/* Estilos adicionales */
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #E74C3C;
 }
