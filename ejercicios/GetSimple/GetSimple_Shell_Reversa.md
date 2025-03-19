@@ -154,35 +154,35 @@ wget https://github.com/danielmiessler/SecLists/archive/refs/heads/master.zip
 
 ### 6 Análisis de la información recopilada hasta ahora
 
-	<> *Puerto 80* Servidor Apache 2.4.41 (UBUNTU)
+<> *Puerto 80* Servidor Apache 2.4.41 (UBUNTU)
 
-	<> `http://IP_objetivo:80` Esta URL nos dirige a una Web que nos confirma el servicio que corre por el puerto 80: **GetSimple** La apariencia de esta página nos hace plantearnos la hipótesis de que este sin configurar y por lo tanto mantenga las credenciales por defecto. Podríamos probar en un posible panel de autenticación credenciales por defecto del tipo: root:root admin:admin admin:password (Son solo algunos ejemplos que se pueden probar).
+<> `http://IP_objetivo:80` Esta URL nos dirige a una Web que nos confirma el servicio que corre por el puerto 80: **GetSimple** La apariencia de esta página nos hace plantearnos la hipótesis de que este sin configurar y por lo tanto mantenga las credenciales por defecto. Podríamos probar en un posible panel de autenticación credenciales por defecto del tipo: root:root admin:admin admin:password (Son solo algunos ejemplos que se pueden probar).
 
-	![Captura de pantalla](./imagenes/5_getsimple_gobuster.png)
+![Captura de pantalla](./imagenes/5_getsimple_gobuster.png)
 
-	<> `/robots.txt` Revelo la existencia de una ruta `/admin/` oculta. 
+<> `/robots.txt` Revelo la existencia de una ruta `/admin/` oculta. 
 
-	<> `/admin/` Accedemos a una ruta que nos lleva a un panel de autenticación, donde podemos probar combinaciones de usuario y contraseña comunes.
+<> `/admin/` Accedemos a una ruta que nos lleva a un panel de autenticación, donde podemos probar combinaciones de usuario y contraseña comunes.
 	
-	![Captura de pantalla](./imagenes/6_admin_gobuster.png)
+![Captura de pantalla](./imagenes/6_admin_gobuster.png)
 	
-	<> `ctrl+U` Accedemos al código fuente HTML de la página de autenticación. Si vamos viendo cada línea, vemos que las variables **Username** y **Password** son nombradas como 'userid' y 'pwd' respectivamente. Esta información es relevante y será explicada más adelante.
+<> `ctrl+U` Accedemos al código fuente HTML de la página de autenticación. Si vamos viendo cada línea, vemos que las variables **Username** y **Password** son nombradas como 'userid' y 'pwd' respectivamente. Esta información es relevante y será explicada más adelante.
 	
-	[ i ] `ctrl+U` es un atajo en los navegadores que muestra el código fuente de la página web.
+[ i ] `ctrl+U` es un atajo en los navegadores que muestra el código fuente de la página web.
 	
-	![Captura de pantalla](./imagenes/9_ctrl_U.png)
+![Captura de pantalla](./imagenes/9_ctrl_U.png)
 
-	<> `/data` La URL propocionada por `gobuster`nos lleva a diferentes rutas interesantes. Entre ellas encontramos `/data/` con varios directorios ocultos.
+<> `/data` La URL propocionada por `gobuster`nos lleva a diferentes rutas interesantes. Entre ellas encontramos `/data/` con varios directorios ocultos.
 	
-	![Captura de pantalla](./imagenes/7_data_gobuster.png)
+![Captura de pantalla](./imagenes/7_data_gobuster.png)
 	
-	<> `/data/user` Esta ruta que encontramos en los directorios ocultos nos muestra información reveladora. Vemos valores para `'USR' = 'admin', 'PWD' = una_especie_de_código_cifrado y 'MAIL' = 'admin@gettitstarted.com'`.
+<> `/data/user` Esta ruta que encontramos en los directorios ocultos nos muestra información reveladora. Vemos valores para `'USR' = 'admin', 'PWD' = una_especie_de_código_cifrado y 'MAIL' = 'admin@gettitstarted.com'`.
 	
-	![Captura de pantalla](./imagenes/8_data_user_gobuster.png)
+![Captura de pantalla](./imagenes/8_data_user_gobuster.png)
 	
-	<> https://crackstation.net/ CrackStation: Descifra hashes rápidamente y de manera gratuita. Con este recurso probamos a meter el valor 'PWD' Nos revela el descifrado como **'admin'**. Ahora tenemos un posible usuario ('admin') y una posible contraseña ('admin'). Esta información confirmaría la hipótesis anterior sobre la configuración prederminada del servicio GetSimple que corre por el puerto 80 de la ip objetivo.
+<> https://crackstation.net/ CrackStation: Descifra hashes rápidamente y de manera gratuita. Con este recurso probamos a meter el valor 'PWD' Nos revela el descifrado como **'admin'**. Ahora tenemos un posible usuario ('admin') y una posible contraseña ('admin'). Esta información confirmaría la hipótesis anterior sobre la configuración prederminada del servicio GetSimple que corre por el puerto 80 de la ip objetivo.
 	
-	![Captura de pantalla](./imagenes/10_password.png)
+![Captura de pantalla](./imagenes/10_password.png)
 
 [ + ] Un hasher es una herramienta o función que convierte datos (como contraseñas, textos o archivos) en un hash, que es una cadena de caracteres de longitud fija generada mediante un algoritmo de hash como MD5, SHA-1, SHA-256, etc.
 
@@ -329,25 +329,25 @@ Este ejercicio demuestra cómo una vulnerabilidad en un plugin de WordPress pued
 
 ## A tener en cuenta
 
-	<> Cerrar netcat después de usarlo: Es importante cerrar las conexiones de netcat después de usarlas para evitar que queden abiertas y sean potencialmente explotadas.
+<> Cerrar netcat después de usarlo: Es importante cerrar las conexiones de netcat después de usarlas para evitar que queden abiertas y sean potencialmente explotadas.
 	
-	<> Uso de contraseñas débiles: Siempre que sea posible, debemos evitar contraseñas débiles. En este caso, la máquina objetivo tiene credenciales débiles que facilitaban el acceso. En entornos reales, deberíamos fomentar el uso de contraseñas fuertes y autenticación de múltiples factores.
+<> Uso de contraseñas débiles: Siempre que sea posible, debemos evitar contraseñas débiles. En este caso, la máquina objetivo tiene credenciales débiles que facilitaban el acceso. En entornos reales, deberíamos fomentar el uso de contraseñas fuertes y autenticación de múltiples factores.
 	
-	<> Permanecer discreto: Al realizar un ataque de este tipo, es recomendable mantener un perfil bajo para evitar que las actividades sean detectadas. Esto implica configurar adecuadamente las herramientas y no dejar rastros evidentes.
+<> Permanecer discreto: Al realizar un ataque de este tipo, es recomendable mantener un perfil bajo para evitar que las actividades sean detectadas. Esto implica configurar adecuadamente las herramientas y no dejar rastros evidentes.
 
-	<> Actualizar plugins y software: Asegúrate de que todos los plugins y el software de WordPress estén actualizados. Muchas vulnerabilidades son conocidas y pueden ser fácilmente evitadas mediante la instalación de actualizaciones de seguridad.
+<> Actualizar plugins y software: Asegúrate de que todos los plugins y el software de WordPress estén actualizados. Muchas vulnerabilidades son conocidas y pueden ser fácilmente evitadas mediante la instalación de actualizaciones de seguridad.
 	
-	<> Revisión de logs: Durante un ataque, es esencial monitorizar los logs de las máquinas afectadas para detectar cualquier comportamiento sospechoso. Los logs pueden proporcionar información valiosa para identificar y mitigar ataques en tiempo real.
+<> Revisión de logs: Durante un ataque, es esencial monitorizar los logs de las máquinas afectadas para detectar cualquier comportamiento sospechoso. Los logs pueden proporcionar información valiosa para identificar y mitigar ataques en tiempo real.
 	
 ---
 
 ## Recomendaciones adicionales
 
-	<> Pruebas de seguridad constantes: Es recomendable realizar pruebas de penetración periódicas para identificar posibles vulnerabilidades en los sistemas. Esto ayudará a garantizar que los sistemas estén protegidos contra vulnerabilidades conocidas.
+<> Pruebas de seguridad constantes: Es recomendable realizar pruebas de penetración periódicas para identificar posibles vulnerabilidades en los sistemas. Esto ayudará a garantizar que los sistemas estén protegidos contra vulnerabilidades conocidas.
 
-	<> Uso de herramientas de escaneo de vulnerabilidades: Además de los métodos manuales, existen herramientas automatizadas como WPScan y Nikto que pueden realizar escaneos rápidos y eficientes para detectar vulnerabilidades en servicios web como WordPress.
+<> Uso de herramientas de escaneo de vulnerabilidades: Además de los métodos manuales, existen herramientas automatizadas como WPScan y Nikto que pueden realizar escaneos rápidos y eficientes para detectar vulnerabilidades en servicios web como WordPress.
 
-	<> Escalada de privilegios automatizada: Existen scripts y herramientas como LinPEAS o Linux Exploit Suggester que pueden ayudarte a identificar formas automáticas de escalar privilegios en sistemas vulnerables.
+<> Escalada de privilegios automatizada: Existen scripts y herramientas como LinPEAS o Linux Exploit Suggester que pueden ayudarte a identificar formas automáticas de escalar privilegios en sistemas vulnerables.
 
 ---
 
@@ -369,9 +369,9 @@ De igual modo puede encontrar una excelente orientación en el módulo de 'Hack 
 
 <> Ruta para script de enumeración de vulnerabilidades con acceso a elevar privilegios: https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
 
-	<> Se puede decargar con wget: wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+   <> Se puede decargar con wget: wget https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
 
-	<> También se puede descargar con curl: curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -o LinEnum.sh
+   <> También se puede descargar con curl: curl https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -o LinEnum.sh
 
 
 
