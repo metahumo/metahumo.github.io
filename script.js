@@ -1,11 +1,7 @@
+// script.js - Funcionalidad básica
+
 document.addEventListener("DOMContentLoaded", function () {
-    const dropdown = document.querySelector(".dropdown");
-
-    dropdown.addEventListener("mouseenter", function () {
-        this.querySelector(".dropdown-menu").style.display = "block";
-    });
-
-    dropdown.addEventListener("mouseleave", function () {
-        this.querySelector(".dropdown-menu").style.display = "none";
-    });
+    const welcomeMessage = document.querySelector('header p');
+    welcomeMessage.innerHTML += " ¡Aquí comenzarás a aprender y compartir tus conocimientos en ciberseguridad!";
 });
+
