@@ -1,4 +1,35 @@
-/* Menú desplegable */
+/* Estilos básicos para la página */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+header {
+    background-color: #2C3E50;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+nav {
+    background-color: #34495E;
+    padding: 10px 0;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -7,8 +38,7 @@ nav ul {
 }
 
 nav ul li {
-    display: inline-block;
-    position: relative;
+    display: inline;
     margin: 0 15px;
 }
 
@@ -16,38 +46,39 @@ nav ul li a {
     color: #ECF0F1;
     text-decoration: none;
     font-size: 1.1em;
-    padding: 10px;
-    display: block;
 }
 
 nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Estilos del menú desplegable */
-.dropdown-menu {
-    display: none;
+section.intro {
+    background-color: #ECF0F1;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+section.intro h2 {
+    font-size: 2em;
+    color: #2C3E50;
+}
+
+footer {
+    background-color: #2C3E50;
+    color: white;
+    text-align: center;
+    padding: 15px;
     position: absolute;
-    background-color: #34495E;
-    min-width: 200px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    list-style: none;
-    padding: 0;
-    left: 0;
+    width: 100%;
+    bottom: 0;
 }
 
-.dropdown-menu li {
-    display: block;
+/* Estilos adicionales */
+a {
+    text-decoration: none;
 }
 
-.dropdown-menu li a {
-    display: block;
-    padding: 10px;
-    color: #ECF0F1;
-    text-align: left;
-}
-
-.dropdown:hover .dropdown-menu {
-    display: block;
+a:hover {
+    color: #E74C3C;
 }
