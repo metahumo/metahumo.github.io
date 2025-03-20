@@ -45,7 +45,7 @@ Sigue los siguientes pasos:
 
 2. Configura, desde la pestaña de 'Proxy', los ajustes tal y como se ve en la imagen. Por defecto, debería venir configurado con su IP local y el puerto estándar de BurpSuite (8080). Esta misma configuración (IP:Puerto) deberá replicarla en 'FoxyProxy'.
 
-![Captura de pantalla](./imagenes/3_configurar_proxy_burp.png)
+![Captura de pantalla](./imagenes/3_configurar_proxu_burp.png)
 
 3. Confirmada la configuración 'Proxy' de BurpSuite, procedemos a configurar las 'opciones/settings' de FoxyProxy. Para ello, acceda a su extensión y acceda a opciones como se muestra en la imagen:
 
@@ -79,13 +79,13 @@ Sigue los siguientes pasos:
 
 ![Captura de pantalla](./imagenes/9_cargar_certificado.png)
 
-![Captura de pantalla](./imagenes/10_importar_certificado.png)
+![Captura de pantalla](./imagenes/10_importar_certificadp.png)
 
 **Nota:** En Chrome se busca desde "Administrar certificados".
 
 8. Tenemos que señalar 'Confiar en esta CA para identificar sitios web' y darle a aceptar.
 
-![Captura de pantalla](./imagenes/11_confianza_web.png)
+![Captura de pantalla](./imagenes/11_confian_web.png)
 
 9. Con estos pasos, deberíamos tener instalado el certificado HTTPS de BurpSuite, el cual nos permite interceptar tráfico HTTPS.
 
@@ -99,7 +99,7 @@ Por lo tanto, para iniciar un ejercicio con BurpSuite empezamos con el apartado 
 
 En las siguientes imágenes podemos ver la secuencia completa del proceso mencionado:
 
-![Captura de pantalla](./imagenes/12_intercept_off.png)
+![Captura de pantalla](./imagenes/12_intercep_off.png)
 
 ![Captura de pantalla](./imagenes/13_on.png)
 
