@@ -42,7 +42,7 @@ Un **archivo Dockerfile** se compone de varias secciones, cada una de las cuales
 Algunas de las secciones más comunes en un archivo Dockerfile son:
 
 **FROM:** se utiliza para especificar la imagen base desde la cual se construirá la nueva imagen.  
-**MAINTAINER** se utiliza para indicar al creado o creadora del Docker. Puede incluir el nombre o pseudónimo, mail o contacto, página web, red social, entre otros.  
+**MAINTAINER** se utiliza para indicar al creador o creadora del Docker. Puede incluir el nombre o pseudónimo, mail o contacto, página web, red social, entre otros.  
 **RUN:** se utiliza para ejecutar comandos en el interior del contenedor, como la instalación de paquetes o la configuración del entorno.  
 **COPY:** se utiliza para copiar archivos desde el sistema host al interior del contenedor.  
 **CMD:** se utiliza para especificar el comando que se ejecutará cuando se arranque el contenedor.  
