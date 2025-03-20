@@ -7,7 +7,7 @@
 2. [¿Qué es Docker?](#qué-es-docker)
 3. [¿Por qué usar Docker?](#por-qué-usar-docker)
 4. [Dockerfile](#dockerfile)
-5. [Imágenes y Contenedores](#imágenes-y-contenedores)
+5. [Imágenes y Contenedores](#cual-es-la-diferencia-entre-imágenes-y-contenedores)
 6. [Uso Básico de Docker](#uso-básico-de-docker)
 7. [Creación de Imágenes Personalizadas](#creación-de-imágenes-personalizadas)
 8. [Instalación de Herramientas y Recursos](#instalación-de-herramientas-y-recursos)
