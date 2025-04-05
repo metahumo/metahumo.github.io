@@ -25,10 +25,10 @@ wpscan -url http://127.0.0.1:31337 -e vp,u
 
 Usar API TOKEN para mejorar el escaneo, registrarse en esta página: https://wpscan.com/api/
 
-API Token--> zzqD4pgsrFUtRKsOgc5voC70bgbJyZEsz8sb1Fi54YU
+API Token--> zzqD4pgsrFUtRKsOgc5voC70bgbJy...
 
 ```bash
-wpscan --url http://127.0.0.1:31337 -e vp --api-token="zzqD4pgsrFUtRKsOgc5voC70bgbJyZEsz8sb1Fi54YU"
+wpscan --url http://127.0.0.1:31337 -e vp --api-token="zzqD4pgsrFUtRKsOgc5voC70bgbJy...
 ```
 
 Forzar contraseña con wpscan:
