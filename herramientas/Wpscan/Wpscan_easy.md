@@ -37,10 +37,9 @@ Forzar contraseña con wpscan:
 wpscan --utl http://127.0.0.1:31337 -U USUARIO_DETECTADO -P /usr/share/wordlists/rockyou.txt
 ```
 
-Podemos aplicar ejercicios de fuerza bruta sobre el archivo **xmlrpc.php**. Para ello sería necesario crear un **Script** de *Bash* o *Python* que nos permita hacer este procedimiento de forma manual [^2].
+Podemos aplicar ejercicios de fuerza bruta sobre el archivo **xmlrpc.php**. Para ello sería necesario crear un **Script** de *Bash* o *Python* que nos permita hacer este procedimiento de forma manual.
 
 --- 
 ## Referencias
 
 [^1]: Página oficial de la herramienta: [GitHub-Wpsan](https://github.com/wpscanteam/wpscan)
-[^2]: Procedimiento manual para la explotación del XML-RPC: [[Documento Hacker/Gestores de contenido (CMS) 🌐/WordPress/XMLRPC]]
